@@ -9,12 +9,23 @@ public class Plateau {
 
 	public Plateau(int taille) {
 		assert taille > 0 && taille <= TAILLE_MAX;
-		
 		t = new Pion [taille][taille];
+		
 		for (int lig = 0; lig < taille(); ++lig) {
 			for (int col = 0; col < taille(); ++col)
 				t[col][lig] = Pion.Vide;
 		}
+	}
+	
+	public Plateau(int taille, String pos) {
+		assert taille > 0 && taille <= TAILLE_MAX;
+		t = new Pion [taille][taille];
+		
+		String[] lignes = decouper(taille, pos);
+		
+		for (int i=0; i < taille(); ++i)
+			for (int j = 0; j < taille(); ++j)
+				t[i][j] = Pion.get(lignes[i].charAt(j));
 	}
 	
 	public int taille() {

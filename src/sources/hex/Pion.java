@@ -18,8 +18,8 @@ public enum Pion {
 		for(Pion p : Pion.values())
 			if (p.symbole == c)
 				return p;
-		
-		return null;
+		throw new IllegalArgumentException
+			("Symbole inconnu :"+c);
 		
 	}
 }
