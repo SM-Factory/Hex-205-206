@@ -27,6 +27,16 @@ class PlateauTest {
 		// jouer un coup en B2
 		//assertEquals(Pion.Croix, p.getCase("B2"));
 		
+		String pos1 = "....XOXXOO.OX...";
+		
+		String[] lignes = Plateau.decouper(taille, pos1);
+		
+		String[] lignes_rep = {"....", "XOXX", "OO.O", "X..."};
+		for(int i = 0; i<taille; ++i)
+			assertEquals(lignes_rep[i], lignes[i]);
+		
+		//String s ="";
+		//s.substring(beginIndex, endIndex);
+		
 	}
-
 }

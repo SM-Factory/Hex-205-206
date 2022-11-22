@@ -1,6 +1,7 @@
 package sources.hex;
 
 public class Plateau {
+	
 	private final static int TAILLE_MAX = 26;
 	private final static int NB_JOUEURS = 2;
 	
@@ -10,16 +11,15 @@ public class Plateau {
 		assert taille > 0 && taille <= TAILLE_MAX;
 		
 		t = new Pion [taille][taille];
-		
-		for (int lig = 0; lig < taille(); ++lig)
+		for (int lig = 0; lig < taille(); ++lig) {
 			for (int col = 0; col < taille(); ++col)
 				t[col][lig] = Pion.Vide;
+		}
 	}
 	
 	public int taille() {
 		return t.length;
 	}
-	
 	
 	private String espaces(int n) {
 		String s = "";
@@ -27,6 +27,8 @@ public class Plateau {
 			s+= " ";
 		return s;
 	}
+	
+	
 	@Override
 	public String toString() {
 		String s = "";
@@ -42,8 +44,12 @@ public class Plateau {
 		return s;
 	}
 
-
-
-
+	public static String[] decouper(int taille, String pos1) {
+		String[] lignes = new String[taille];
+		for (int i = 0; i < taille; ++i) {
+			lignes[i] = pos1.substring(taille*i, taille*(i+1));
+		}
+		return lignes;
+	}
 
 }
