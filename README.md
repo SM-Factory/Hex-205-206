@@ -1,6 +1,7 @@
-# <u>Projet Hex</u>
+# <u>Projet Hex 205-206</u>
 
-Présentation 
+## <u>Présentation</u>
+Voici notre répertoire sur le projet Hex qui permet de joueur au jeu.
 
 ## <u>Equipe</u>
 1. Simon Regenwetter
