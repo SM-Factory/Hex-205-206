@@ -11,11 +11,13 @@ public class Interface {
     public static void main(String[] args) {
         int taille = recupererTaille();
         Plateau plateau = new Plateau(taille);
-        while(true) {
+        while(!(plateau.estFinie())) {
             affichePlateau(plateau);
             String coord = recupererCase(plateau);
             plateau.jouer(coord);
         }
+        affichePlateau(plateau);
+        System.out.println("Partie Finie ! Le joueur gagnant est celui jouant les " + plateau.getGagnant());
     }
 
     public static int recupererTaille() {

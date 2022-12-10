@@ -1,7 +1,11 @@
 package sources.hex;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Plateau {
-	private final static int TAILLE_MAX = 26;
+	private final static int TAILLE_MAX = 10;
 	private final static int NB_JOUEURS = 2;
 	private final static int START_COLONNE = 'A';
 	private final static int START_LIGNE = '1';
@@ -30,16 +34,17 @@ public class Plateau {
 	}
 
 	public boolean estValide(String coord) {
-		if ( coord.length() !=2)
+		if (coord.length() !=2)
 			return false;
 		int col = getColonne (coord);
 		int lig = getLigne(coord);
-		System.out.println(coord + " "+ col+ " "+ lig);
+		//System.out.println(coord + " "+ col+ " "+ lig);
 		if (col <0 || col >= taille())
 			return false;
 		if (lig <0 || lig >= taille())
 			return false;
-		return true;
+		if (t[col][lig] == Pion.Vide) return true;
+		return false;
 	}
 
 	public Pion getCase(String coord) {
@@ -135,11 +140,105 @@ public class Plateau {
 		return TAILLE_MAX;
 	}
 
-	public boolean estFinie() {
+	private ArrayList<Integer[]> getVoisins(int x, int y) {
+		ArrayList<Integer[]> voisins = new ArrayList<>();
+		if (x == 0 && y==0) {
+			voisins.add(new Integer[]{x,y+1});
+			voisins.add(new Integer[]{x+1,y});
+		} else if (x == taille()-1 && y == taille()-1) {
+			voisins.add(new Integer[]{x-1,y});
+			voisins.add(new Integer[]{x,y-1});
+		} else if (x == 0 && y == taille()-1) {
+			voisins.add(new Integer[]{x+1,y});
+			voisins.add(new Integer[]{x+1,y-1});
+			voisins.add(new Integer[]{x,y-1});
+		} else if (x == taille()-1 && y == 0) {
+			voisins.add(new Integer[]{x-1,y});
+			voisins.add(new Integer[]{x-1,y+1});
+			voisins.add(new Integer[]{x,y+1});
+		} else if (x == 0) {
+			voisins.add(new Integer[]{x,y+1});
+			voisins.add(new Integer[]{x+1,y});
+			voisins.add(new Integer[]{x+1,y-1});
+			voisins.add(new Integer[]{x,y-1});
+		} else if (x == taille()-1) {
+			voisins.add(new Integer[]{x,y-1});
+			voisins.add(new Integer[]{x-1,y+1});
+			voisins.add(new Integer[]{x,y+1});
+			voisins.add(new Integer[]{x,y-1});
+		} else if (y == 0) {
+			voisins.add(new Integer[]{x-1,y});
+			voisins.add(new Integer[]{x-1,y+1});
+			voisins.add(new Integer[]{x,y+1});
+			voisins.add(new Integer[]{x+1,y});
+		} else if (y == taille()-1) {
+			voisins.add(new Integer[]{x-1,y});
+			voisins.add(new Integer[]{x+1,y});
+			voisins.add(new Integer[]{x+1,y-1});
+			voisins.add(new Integer[]{x,y-1});
+		} else {
+			voisins.add(new Integer[]{x-1,y});
+			voisins.add(new Integer[]{x-1,y+1});
+			voisins.add(new Integer[]{x,y+1});
+			voisins.add(new Integer[]{x+1,y});
+			voisins.add(new Integer[]{x+1,y-1});
+			voisins.add(new Integer[]{x,y-1});
+		}
+		return voisins;
+	}
 
+	private boolean estBordure(int x, int y, Pion p) {
+		if (p == Pion.Croix && x == taille()-1) return true;
+		if (p == Pion.Rond && y == taille()-1) return true;
+		return false;
+	}
+
+	private boolean check(int x, int y, boolean[][] visitee, Pion p) {
+		visitee[x][y] = true;
+		System.out.println("test " + x + " " + y + " " + t[x][y] + " " + p);
+		if (t[x][y] == p && estBordure(x,y,p)) return true;
+		else if (t[x][y] == Pion.Vide) return false;
+		else {
+			ArrayList<Integer[]> voisins = getVoisins(x,y);
+			for (Integer[] voisin : voisins) {
+				if (visitee[voisin[0]][voisin[1]] == false && t[voisin[0]][voisin[1]] == p) {
+					System.out.println("test " + voisin[0] + " " + voisin[1]);
+					return check(voisin[0],voisin[1],visitee,p);
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean estFinie() {
+		if (getNb(Pion.values()[getAutreJoueur()]) < taille()) return false;
+		if (joueur == 1) {
+			for (int x = 0; x<taille();) {
+				boolean visitee[][] = new boolean[taille()][taille()];
+				for (boolean[] b : visitee) {
+					Arrays.fill(b, Boolean.FALSE);
+				}
+				visitee[x][0] = true;
+				return check(x,0, visitee, Pion.Croix);
+			}
+		} else if (joueur == 0) {
+			for (int y = 0; y<taille();) {
+				boolean visitee[][] = new boolean[taille()][taille()];
+				for (boolean[] b : visitee) {
+					Arrays.fill(b, Boolean.FALSE);
+				}
+				visitee[0][y] = true;
+				return check(0, y, visitee, Pion.Rond);
+			}
+		}
 
 		return false;
 	}
 
+	private int getAutreJoueur() {return (joueur+1)%2; }
+
+	public String getGagnant() {
+		return Pion.values()[getAutreJoueur()].name();
+	}
 
 }
