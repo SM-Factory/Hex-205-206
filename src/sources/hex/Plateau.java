@@ -87,6 +87,7 @@ public class Plateau {
 				getNb(Pion.Croix) != (getNb(Pion.Rond)-1))
 			throw new IllegalArgumentException(
 					"position non valide");
+		if (getNb(Pion.Croix) > getNb(Pion.Rond)) joueur = 1;
 	}
 
 
@@ -195,14 +196,15 @@ public class Plateau {
 
 	private boolean check(int x, int y, boolean[][] visitee, Pion p) {
 		visitee[x][y] = true;
-		System.out.println("test " + x + " " + y + " " + t[x][y] + " " + p);
+		//System.out.println("test " + x + " " + y + " " + t[x][y] + " " + p);
 		if (t[x][y] == p && estBordure(x,y,p)) return true;
 		else if (t[x][y] == Pion.Vide) return false;
 		else {
 			ArrayList<Integer[]> voisins = getVoisins(x,y);
 			for (Integer[] voisin : voisins) {
+				//System.out.println("test voisin " + voisin[0] + " " + voisin[1] + " " + (visitee[voisin[0]][voisin[1]]));
 				if (visitee[voisin[0]][voisin[1]] == false && t[voisin[0]][voisin[1]] == p) {
-					System.out.println("test " + voisin[0] + " " + voisin[1]);
+					//System.out.println("test voisin " + voisin[0] + " " + voisin[1]);
 					return check(voisin[0],voisin[1],visitee,p);
 				}
 			}
@@ -213,32 +215,30 @@ public class Plateau {
 	public boolean estFinie() {
 		if (getNb(Pion.values()[getAutreJoueur()]) < taille()) return false;
 		if (joueur == 1) {
-			for (int x = 0; x<taille();) {
+			for (int y=0;y<taille();y++) {
 				boolean visitee[][] = new boolean[taille()][taille()];
 				for (boolean[] b : visitee) {
-					Arrays.fill(b, Boolean.FALSE);
+					Arrays.fill(b, false);
 				}
-				visitee[x][0] = true;
-				return check(x,0, visitee, Pion.Croix);
+				if (check(0,y, visitee, Pion.Croix)) return true;
 			}
 		} else if (joueur == 0) {
-			for (int y = 0; y<taille();) {
+			for (int x = 0; x<taille();x++) {
 				boolean visitee[][] = new boolean[taille()][taille()];
 				for (boolean[] b : visitee) {
 					Arrays.fill(b, Boolean.FALSE);
 				}
-				visitee[0][y] = true;
-				return check(0, y, visitee, Pion.Rond);
+				if (check(x, 0, visitee, Pion.Rond)) return true;
 			}
 		}
-
 		return false;
 	}
 
 	private int getAutreJoueur() {return (joueur+1)%2; }
 
 	public String getGagnant() {
-		return Pion.values()[getAutreJoueur()].name();
+		if (estFinie()) return Pion.values()[getAutreJoueur()].name();
+		throw new IllegalArgumentException("partie non finie");
 	}
 
 }

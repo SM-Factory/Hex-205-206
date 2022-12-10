@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import sources.hex.Pion;
 import sources.hex.Plateau;
+import sources.ihm.Interface;
 
 class PlateauTest {
-	private String pos1 = ".X..XOXXOO.OX...";
+	private String pos1 = ".X..XOXXOO.OX...", pos2 = ".XX.XOXXOO.OXO..", pos3 = ".XO.XOXXOO.OXO..";
 	private String[] lignes1_rep = {
 			".X..",
 			"XOXX",
@@ -67,5 +68,22 @@ class PlateauTest {
 
 		Plateau p = new Plateau(taille, pos);
 		assertEquals(display_rep, p.toString());
+	}
+
+
+	@Test
+	void testFinie() {
+		testFinie(pos2,Pion.Croix.name());
+		testFinie(pos3,Pion.Rond.name());
+	}
+
+	private void testFinie(String pos2, String s) {
+		int taille = Plateau.getTaille(pos2);
+		Plateau p = new Plateau(taille, pos2);
+		System.out.println(p.getNb(Pion.Croix));
+		System.out.println(p.getNb(Pion.Rond));
+		Interface.affichePlateau(p);
+		assertTrue(p.estFinie());
+		assertEquals(p.getGagnant(),s);
 	}
 }
