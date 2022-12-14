@@ -1,5 +1,8 @@
 package sources.hex;
 
+import sources.joueurs.Humain;
+import sources.joueurs.OrdinateurAleatoire;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,9 +15,14 @@ public class Plateau {
 
 	private Pion[][] t;
 	private int joueur = 0; // prochain à jouer
+	private IJoueur[] joueurs = new IJoueur[2];
 
 	private void suivant() {
 		joueur = (joueur +1) % NB_JOUEURS;
+	}
+
+	public void jouer() {
+		jouer(joueurs[joueur].jouer(this));
 	}
 
 	public void jouer(String coord) {
@@ -43,6 +51,7 @@ public class Plateau {
 			return false;
 		if (lig <0 || lig >= taille())
 			return false;
+		if (t[col][lig] == Pion.Rond || t[col][lig] == Pion.Croix) return false;
 		if (t[col][lig] == Pion.Vide) return true;
 		return false;
 	}
@@ -69,6 +78,19 @@ public class Plateau {
 		for (int lig = 0; lig < taille(); ++lig)
 			for (int col = 0; col < taille(); ++col)
 				t[col][lig] = Pion.Vide;
+		//joueurs[0] = new OrdinateurAleatoire();
+		//joueurs[1] = new OrdinateurAleatoire();
+	}
+
+	public Plateau(int taille, IJoueur[] joueurs) {
+		assert taille > 0 && taille <= TAILLE_MAX;
+		t = new Pion [taille][taille];
+
+		for (int lig = 0; lig < taille(); ++lig)
+			for (int col = 0; col < taille(); ++col)
+				t[col][lig] = Pion.Vide;
+		this.joueurs[0] = joueurs[0];
+		this.joueurs[1] = joueurs[1];
 	}
 
 	public Plateau(int taille, String pos) {
@@ -234,7 +256,7 @@ public class Plateau {
 		return false;
 	}
 
-	private int getAutreJoueur() {return (joueur+1)%2; }
+	private int getAutreJoueur() { return (joueur+1)%2; }
 
 	public String getGagnant() {
 		if (estFinie()) return Pion.values()[getAutreJoueur()].name();
