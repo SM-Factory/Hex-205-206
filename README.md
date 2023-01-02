@@ -1,12 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -100,36 +91,10 @@ https://github.com/SM-Factory/Hex-205-206/releases/tag/Release
 <!-- USAGE EXAMPLES -->
 ## Utilisation
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Pour utiliser l'application, lancez simplement le fichier Hex.exe et laissez vous guider par les informations
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
-
-
-
-
-
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/SM-Factory/Hex-205-206.svg?style=for-the-badge
-[contributors-url]: https://github.com/SM-Factory/Hex-205-206/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/SM-Factory/Hex-205-206/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/SM-Factory/Hex-205-206/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/SM-Factory/Hex-205-206/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/SM-Factory/Hex-205-206
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/simrgt
-[product-screenshot]: images/screenshot.png
 [Java]: https://img.shields.io/badge/Java-1.8.0-yellow
-[Next-url]: https://www.java.com/fr/download/
+[Java-url]: https://www.java.com/fr/download/
