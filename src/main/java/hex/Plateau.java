@@ -263,13 +263,13 @@ public class Plateau implements IPlateau {
 
 	private int getAutreJoueur() { return (joueur+1)%2; }
 
-	public String getGagnant() {
-		if (estFinie()) return Pion.values()[getAutreJoueur()].name();
+	public int getGagnant() {
+		if (estFinie()) return getAutreJoueur();
 		throw new IllegalArgumentException("partie non finie");
 	}
 
 	@Override
-	public Plateau clone() {
+	public IPlateau clone() {
 		//System.out.println(this.toString());
 		//System.out.println(this.toString().replaceAll("[\nABCDEFGHI123456789]",""));
 		return new Plateau(taille(),toString().replaceAll("[\nABCDEFGHI123456789 ]",""));

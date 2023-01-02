@@ -15,5 +15,7 @@ public class OrdinateurIntelligentTest {
         IJoueur j2 = new OrdinateurIntelligent(1);
         IPlateau p = new Plateau(2,new IJoueur[]{j1,j2});
         assertTrue(p.estLibre(j1.jouer(p)));
+        p.jouer(j1.jouer(p));
+        System.out.println(p);
     }
 }

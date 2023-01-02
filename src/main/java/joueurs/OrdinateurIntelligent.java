@@ -40,7 +40,7 @@ public class OrdinateurIntelligent implements IJoueur {
             test.jouer(cases[i]);
             if (test.estFinie()) {
                 cmpPartie++;
-                if (test.getGagnant() == Pion.values()[joueur].name()) {
+                if (test.getGagnant() == joueur) {
                     cmpGagnant++;
                 }
                 if (cmpPartie < nbPartiePossible) {

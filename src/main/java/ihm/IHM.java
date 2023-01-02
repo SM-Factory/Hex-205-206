@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class IHM implements IIHM {
     @Override
     public void lancerPartie(IPlateau plateau) throws InterruptedException {
+        afficherRegle();
         while(!(plateau.estFinie())) {
             //clear
             clear();
@@ -42,6 +43,10 @@ public class IHM implements IIHM {
 
     private void afficherGagnant(IPlateau plateau) {
         System.out.println("Partie Finie ! Le joueur gagnant est celui jouant les " + plateau.getGagnant());
+    }
+
+    private void afficherRegle() {
+        System.out.println("Le joueur 1 a les croix et le joueur 2 a les ronds\nLes croix doivent rejoindre les bords droit et gauche et les ronds doivent rejoindre les bords haut et bas");
     }
 
     public int recupererTaille() {

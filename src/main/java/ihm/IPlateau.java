@@ -10,8 +10,8 @@ public interface IPlateau {
     int getNb(Pion pion);
     int taille();
     String toString();
-    Plateau clone();
+    IPlateau clone();
     boolean estFinie();
-    String getGagnant();
+    int getGagnant();
     boolean estLibre(String coord);
 }
