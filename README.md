@@ -62,10 +62,10 @@
 Voici notre répertoire sur le projet Hex qui permet de joueur au jeu.
 
 ## <u>Equipe</u>
-1. Simon Regenwetter
-2. Amin Marheraoui
-3. Yanis Seghdau
-4. Marwan Mellouk
+1. Simon Regenwetter 205
+2. Amin Marheraoui 205
+3. Yanis Seghdau 206
+4. Marwan Mellouk 206
 
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
