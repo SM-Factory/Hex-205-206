@@ -6,6 +6,10 @@ import main.java.ihm.IPlateau;
 
 import java.util.HashMap;
 
+/**
+ * @author SM-Factory
+ * @version 1.0
+ */
 public class OrdinateurIntelligent implements IJoueur {
     private int joueur;
 

@@ -5,6 +5,10 @@ import main.java.ihm.IPlateau;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author SM-Factory
+ * @version 1.0
+ */
 public class Plateau implements IPlateau {
 	private final static int TAILLE_MAX = 10;
 	private final static int NB_JOUEURS = 2;
@@ -265,6 +269,11 @@ public class Plateau implements IPlateau {
 
 	public int getGagnant() {
 		if (estFinie()) return getAutreJoueur();
+		throw new IllegalArgumentException("partie non finie");
+	}
+
+	public String getGagnantNom() {
+		if (estFinie()) return Pion.values()[getAutreJoueur()].name();
 		throw new IllegalArgumentException("partie non finie");
 	}
 

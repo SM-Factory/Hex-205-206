@@ -1,5 +1,9 @@
 package main.java.hex;
 
+/**
+ * @author SM-Factory
+ * @version 1.0
+ */
 public enum Pion {
 	Croix('X'), Rond('O'), Vide('.');
 	private char symbole;

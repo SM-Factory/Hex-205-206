@@ -5,6 +5,10 @@ import main.java.ihm.IHM;
 import main.java.ihm.IPlateau;
 import main.java.joueurs.IIHM;
 
+/**
+ * @author SM-Factory
+ * @version 1.0
+ */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         IIHM ihm = new IHM();

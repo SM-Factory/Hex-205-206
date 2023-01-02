@@ -3,6 +3,10 @@ package main.java.joueurs;
 import main.java.hex.IJoueur;
 import main.java.ihm.IPlateau;
 
+/**
+ * @author SM-Factory
+ * @version 1.0
+ */
 public class OrdinateurAleatoire implements IJoueur {
 
     public String jouer(IPlateau p) {

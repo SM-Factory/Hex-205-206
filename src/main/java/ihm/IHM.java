@@ -10,6 +10,10 @@ import main.java.joueurs.OrdinateurIntelligent;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author SM-Factory
+ * @version 1.0
+ */
 public class IHM implements IIHM {
     @Override
     public void lancerPartie(IPlateau plateau) throws InterruptedException {
@@ -30,6 +34,8 @@ public class IHM implements IIHM {
         }
         affichePlateau(plateau);
         afficherGagnant(plateau);
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
     private void pauseSeconde(int i) throws InterruptedException {
@@ -42,7 +48,7 @@ public class IHM implements IIHM {
     }
 
     private void afficherGagnant(IPlateau plateau) {
-        System.out.println("Partie Finie ! Le joueur gagnant est celui jouant les " + plateau.getGagnant());
+        System.out.println("Partie Finie ! Le joueur gagnant est celui jouant les " + plateau.getGagnantNom());
     }
 
     private void afficherRegle() {
@@ -79,9 +85,9 @@ public class IHM implements IIHM {
 
     public int choixPartie() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Entrez le numÃ©ro de la partie que vous souhaitez jouer\n1 - Partie Classique (Humain vs Humain)\n2 - Partie Contre Ordinateur (Humain vs Ordi)\n3 - Partie Ordinateur (Ordinateur vs Ordinateur)");
+        System.out.println("Entrez le numéro de la partie que vous souhaitez jouer\n1 - Partie Classique (Humain vs Humain)\n2 - Partie Contre Ordinateur (Humain vs Ordi)\n3 - Partie Ordinateur (Ordinateur vs Ordinateur)");
         int choix = sc.nextInt();
-        while(choix < 0 && choix > 4) {
+        while(choix < 0 || choix > 4) {
             System.out.println("Mauvaise entrez. Entrez la taille");
             choix = sc.nextInt();
         }
@@ -116,9 +122,9 @@ public class IHM implements IIHM {
 
     private int choixOrdinateur() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Entrez le numÃ©ro ddu type d'ordinateur que vous souhaitez crÃ©er\n1 - Ordinateur AlÃ©atoire\n2 - Ordinateur Intelligent\n");
+        System.out.println("Entrez le numéro du type d'ordinateur que vous souhaitez créer\n1 - Ordinateur Aléatoire\n2 - Ordinateur Intelligent\n");
         int choix = sc.nextInt();
-        while(choix < 0 && choix > 3) {
+        while(choix < 0 || choix > 3) {
             System.out.println("Mauvaise entrez. Entrez la taille");
             choix = sc.nextInt();
         }
