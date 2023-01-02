@@ -41,6 +41,7 @@
       </ul>
     </li>
     <li><a href="#usage">Utilisation</a></li>
+    <li><a href="#rapport">Rapport</a></li>
   </ol>
 </details>
 
@@ -95,6 +96,15 @@ Pour utiliser l'application, lancez simplement le fichier Hex.exe et laissez vou
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
+<!-- RAPPORT -->
+## Rapport
+<object data="https://github.com/SM-Factory/Hex-205-206/blob/main/ressources/Dossier_Hex.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/SM-Factory/Hex-205-206/blob/main/ressources/Dossier_Hex.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/SM-Factory/Hex-205-206/blob/main/ressources/Dossier_Hex.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 
 [Java]: https://img.shields.io/badge/Java-1.8.0-yellow
 [Java-url]: https://www.java.com/fr/download/
+
