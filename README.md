@@ -11,7 +11,7 @@
 <br />
 <div align="center">
   <a href="">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/SM-Factory/Hex-205-206/blob/main/ressources/thenounproject.png" alt="Logo" width="200" height="200">
   </a>
 
 <h3 align="center">Projet Hex 205-206</h3>
