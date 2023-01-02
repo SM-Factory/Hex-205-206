@@ -1,4 +1,4 @@
-package tests.ihm;
+package test.java.ihm;
 
 import org.junit.jupiter.api.Test;
 

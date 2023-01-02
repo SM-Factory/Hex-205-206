@@ -1,23 +1,21 @@
-package sources.joueurs;
+package main.java.joueurs;
 
-import sources.hex.IJoueur;
-import sources.hex.Plateau;
-import sources.ihm.IIHM;
-
-import java.util.Random;
+import main.java.hex.IJoueur;
+import main.java.ihm.IPlateau;
 
 public class OrdinateurAleatoire implements IJoueur {
-    public String jouer(Plateau p) {
+
+    public String jouer(IPlateau p) {
         String s = "";
         int min = 0;
         int max = p.taille();
 
-        while(!p.estValide(s)) {
+        while(!p.estLibre(s)) {
             s = "";
             s += (char) (('A' + (int) (Math.random() * (max - min)) + min));
             s += (char) (int) (Math.random() * (max - min)) + min + 1;
         }
-        System.out.println(s);
+        //System.out.println(s);
         return s;
     }
 

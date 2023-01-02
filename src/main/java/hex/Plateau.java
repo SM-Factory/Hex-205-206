@@ -1,13 +1,11 @@
-package sources.hex;
+package main.java.hex;
 
-import sources.joueurs.Humain;
-import sources.joueurs.OrdinateurAleatoire;
+import main.java.ihm.IPlateau;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Plateau {
+public class Plateau implements IPlateau {
 	private final static int TAILLE_MAX = 10;
 	private final static int NB_JOUEURS = 2;
 	private final static int START_COLONNE = 'A';
@@ -15,16 +13,18 @@ public class Plateau {
 
 	private Pion[][] t;
 	private int joueur = 0; // prochain à jouer
-	private IJoueur[] joueurs = new IJoueur[2];
+	private IJoueur[] joueurs;
 
 	private void suivant() {
 		joueur = (joueur +1) % NB_JOUEURS;
 	}
 
+	@Override
 	public void jouer() {
 		jouer(joueurs[joueur].jouer(this));
 	}
 
+	@Override
 	public void jouer(String coord) {
 		assert estValide(coord);
 		assert getCase(coord) == Pion.Vide;
@@ -51,8 +51,16 @@ public class Plateau {
 			return false;
 		if (lig <0 || lig >= taille())
 			return false;
-		if (t[col][lig] == Pion.Rond || t[col][lig] == Pion.Croix) return false;
-		if (t[col][lig] == Pion.Vide) return true;
+		return true;
+	}
+
+	public boolean estLibre(String coord) {
+		if (estValide(coord)) {
+			int col = getColonne (coord);
+			int lig = getLigne(coord);
+			if (t[col][lig] == Pion.Rond || t[col][lig] == Pion.Croix) return false;
+			if (t[col][lig] == Pion.Vide) return true;
+		}
 		return false;
 	}
 
@@ -78,8 +86,6 @@ public class Plateau {
 		for (int lig = 0; lig < taille(); ++lig)
 			for (int col = 0; col < taille(); ++col)
 				t[col][lig] = Pion.Vide;
-		//joueurs[0] = new OrdinateurAleatoire();
-		//joueurs[1] = new OrdinateurAleatoire();
 	}
 
 	public Plateau(int taille, IJoueur[] joueurs) {
@@ -89,8 +95,7 @@ public class Plateau {
 		for (int lig = 0; lig < taille(); ++lig)
 			for (int col = 0; col < taille(); ++col)
 				t[col][lig] = Pion.Vide;
-		this.joueurs[0] = joueurs[0];
-		this.joueurs[1] = joueurs[1];
+		this.joueurs = joueurs;
 	}
 
 	public Plateau(int taille, String pos) {
@@ -263,4 +268,10 @@ public class Plateau {
 		throw new IllegalArgumentException("partie non finie");
 	}
 
+	@Override
+	public Plateau clone() {
+		//System.out.println(this.toString());
+		//System.out.println(this.toString().replaceAll("[\nABCDEFGHI123456789]",""));
+		return new Plateau(taille(),toString().replaceAll("[\nABCDEFGHI123456789 ]",""));
+	}
 }

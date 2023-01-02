@@ -1,38 +1,46 @@
-package sources.ihm;
+package main.java.ihm;
 
-import sources.hex.IJoueur;
-import sources.hex.Plateau;
-import sources.joueurs.Humain;
-import sources.joueurs.OrdinateurAleatoire;
+import main.java.hex.IJoueur;
+import main.java.joueurs.OrdinateurAleatoire;
+import main.java.hex.Plateau;
+import main.java.joueurs.Humain;
+import main.java.joueurs.IIHM;
+import main.java.joueurs.OrdinateurIntelligent;
 
-
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class IHM implements IIHM{
-
-    public static void main(String[] args) throws InterruptedException {
-        IIHM ihm = new IHM();
-        int partie = ihm.choixPartie();
-        int taille = ihm.recupererTaille();
-        Plateau plateau = new Plateau(taille, ihm.creationJoueur(partie,ihm));
+public class IHM implements IIHM {
+    @Override
+    public void lancerPartie(IPlateau plateau) throws InterruptedException {
         while(!(plateau.estFinie())) {
             //clear
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clear();
 
             //affiche plateau
-            ihm.affichePlateau(plateau);
-            System.out.println("Je reflechis");
+            affichePlateau(plateau);
+            //System.out.println("Je reflechis");
 
             //sleep
-            TimeUnit.SECONDS.sleep(1);
+            pauseSeconde(1);
 
             //joue
             plateau.jouer();
         }
-        ihm.affichePlateau(plateau);
+        affichePlateau(plateau);
+        afficherGagnant(plateau);
+    }
+
+    private void pauseSeconde(int i) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(i);
+    }
+
+    private void clear() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    private void afficherGagnant(IPlateau plateau) {
         System.out.println("Partie Finie ! Le joueur gagnant est celui jouant les " + plateau.getGagnant());
     }
 
@@ -48,11 +56,11 @@ public class IHM implements IIHM{
     }
 
 
-    public String recupererCase(Plateau p) {
+    public String recupererCase(IPlateau p) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez la position de votre coups au format Colonne Ligne (ex:B2)");
         String position = sc.next();
-        while(!p.estValide(position)) {
+        while(!p.estLibre(position)) {
             System.out.println("Mauvaise entrez. Entrez la position de votre coups au format Colonne Ligne (ex:B2)");
             position = sc.next();
         }
@@ -60,7 +68,7 @@ public class IHM implements IIHM{
     }
 
 
-    public void affichePlateau(Plateau p) {
+    private void affichePlateau(IPlateau p) {
         System.out.println(p);
     }
 
@@ -87,17 +95,39 @@ public class IHM implements IIHM{
 
             case 2:
                 joueurs[0] = new Humain(ihm);
-                joueurs[1]= new OrdinateurAleatoire();
+                joueurs[1] = createOrdi(1);
                 break;
 
             case 3:
-                joueurs[0] = new OrdinateurAleatoire();
-                joueurs[1]= new OrdinateurAleatoire();
+                joueurs[0] = createOrdi(0);
+                joueurs[1]= createOrdi(1);
                 break;
 
             default:
                 throw new IllegalArgumentException("Numero de partie invalide");
         }
         return joueurs;
+    }
+
+    private int choixOrdinateur() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez le numéro ddu type d'ordinateur que vous souhaitez créer\n1 - Ordinateur Aléatoire\n2 - Ordinateur Intelligent\n");
+        int choix = sc.nextInt();
+        while(choix < 0 && choix > 3) {
+            System.out.println("Mauvaise entrez. Entrez la taille");
+            choix = sc.nextInt();
+        }
+        return choix;
+    }
+
+    private IJoueur createOrdi(int i) {
+        switch(choixOrdinateur()) {
+            case 1:
+                return new OrdinateurAleatoire();
+            case 2:
+                return new OrdinateurIntelligent(i);
+            default:
+                throw new IllegalArgumentException("Numero d'ordinateur invalide");
+        }
     }
 }
